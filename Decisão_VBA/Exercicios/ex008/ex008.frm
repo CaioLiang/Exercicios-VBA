@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} ex008 
    Caption         =   "Seguros Takemasa"
-   ClientHeight    =   4410
+   ClientHeight    =   5505
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   3750
@@ -14,7 +14,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub classificarBtn_Click()
-Dim idade As Integer, risco As String, verif As Boolean
+Dim idade As Integer, risco As String, nivel As Integer, verif As Boolean
 idade = Val(txtBoxIdade)
 risco = TextBox1.Value
 If risco <> "a" And risco <> "b" And risco <> "m" Then
@@ -24,47 +24,32 @@ If risco <> "a" And risco <> "b" And risco <> "m" Then
 Else
     verif = True
 End If
-
-If verif = True Then
-    If idade < 18 Or idade > 70 Then
-        MsgBox ("Apenas pessoas entre 18 e 70 anos podem adquirir apólices.")
-        lblResultado.Caption = ""
-    Else
-        If idade < 25 Then
-            If risco = "b" Then
-                lblResultado.Caption = "7"
-            Else
-                If risco = "m" Then
-                    lblResultado.Caption = "8"
-                Else
-                    lblResultado.Caption = "9"
-                End If
-            End If
-        Else
-            If idade < 41 Then
-                If risco = "b" Then
-                    lblResultado.Caption = "4"
-                Else
-                    If risco = "m" Then
-                        lblResultado.Caption = "5"
-                    Else
-                        lblResultado.Caption = "6"
-                    End If
-                End If
-            Else
-                If idade < 71 Then
-                    If risco = "b" Then
-                        lblResultado.Caption = "1"
-                    Else
-                        If risco = "m" Then
-                            lblResultado.Caption = "2"
-                        Else
-                            lblResultado.Caption = "3"
-                        End If
-                    End If
-                End If
-            End If
-        End If
+If verif Then
+    Select Case idade
+        Case 18 To 24
+            Select Case risco
+                Case "b": nivel = 7
+                Case "m": nivel = 8
+                Case Else: nivel = 9
+            End Select
+        Case 25 To 40
+            Select Case risco
+                Case "b": nivel = 4
+                Case "m": nivel = 5
+                Case Else: nivel = 6
+            End Select
+        Case 41 To 70
+            Select Case risco
+                Case "b": nivel = 1
+                Case "m": nivel = 2
+                Case Else: nivel = 3
+            End Select
+        Case Else
+            MsgBox "Apenas pessoas entre 18 e 70 anos podem adquirir apólices."
+            lblResultado.Caption = ""
+    End Select
+    If nivel <> 0 Then
+        lblResultado.Caption = nivel
     End If
 End If
 End Sub
