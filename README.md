@@ -1,2 +1,2 @@
 # Exercicios-VBA
- Lista de 10 exercícios em VBA da Matéria de ILM001.
+ Lista de exercícios em VBA da Matéria de ILM001.
